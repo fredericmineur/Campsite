@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const Campground = require('./models/campground');
+const { render } = require('ejs');
 
 mongoose.connect('mongodb://localhost:27017/camp-site', {
     useNewUrlParser: true,
@@ -31,6 +32,12 @@ app.get('/campgrounds', async (req, res) => {
     res.render('campgrounds/index', {campgrounds})
 })
 
+app.get('/campgrounds/:id',  async (req, res) => {
+    const {id} = req.params;
+    console.log(id);
+    const campground = await Campground.findById(id);
+    res.render('campgrounds/show', {campground})
+})
 
 
 app.listen(3000, () => {console.log('Serving on port 3000')})
