@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const Campground = require('./models/campground');
-const { render } = require('ejs');
+// const { render } = require('ejs');
+const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+
+const Campground = require('./models/campground');
 
 mongoose.connect('mongodb://localhost:27017/camp-site', {
     useNewUrlParser: true,
@@ -19,6 +21,7 @@ db.once("open", () => {
 
 const app = express();
 
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
