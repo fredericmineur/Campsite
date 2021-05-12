@@ -5,7 +5,7 @@ const Campground = require('../models/campground');
 
 mongoose.connect('mongodb://localhost:27017/camp-site', {
     useNewUrlParser: true,
-    userCreateIndex: true,
+    // userCreateIndex: true,
     useUnifiedTopology: true
 });
 

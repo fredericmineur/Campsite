@@ -12,7 +12,7 @@ const ExpressError = require('./utils/ExpressError');
 
 mongoose.connect('mongodb://localhost:27017/camp-site', {
     useNewUrlParser: true,
-    userCreateIndex: true,
+    // userCreateIndex: true,
     useUnifiedTopology: true
 });
 
