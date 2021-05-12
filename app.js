@@ -8,6 +8,7 @@ const catchAsync = require('./utils/catchAsync');
 
 const {campgroundSchema} = require('./schemas');
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 const ExpressError = require('./utils/ExpressError');
 
 mongoose.connect('mongodb://localhost:27017/camp-site', {
@@ -82,6 +83,17 @@ app.delete('/campgrounds/:id', async (req, res, next) => {
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
 })
+
+
+//REVIEWS
+app.post('/campgounds/:id/reviews', catchAsync (async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+}));
 
 
 app.all('*', (req, res, next)=>{
