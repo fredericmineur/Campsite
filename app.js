@@ -70,6 +70,7 @@ app.all('*', (req, res, next) => {
 
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
+    // req.flash('error', err.message)
     res.status(statusCode).render('error', { err });
 })
 
