@@ -8,6 +8,9 @@ const flash = require('connect-flash');
 const ExpressError = require('./utils/ExpressError');
 const campgroundRoutes = require('./routes/campground');
 const reviewRoutes = require('./routes/review');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
 mongoose.connect('mongodb://localhost:27017/camp-site', {
     useNewUrlParser: true,
@@ -45,11 +48,24 @@ const sessionOptions = {
 
 app.use(session(sessionOptions));
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 
 app.use((req, res, next)=>{
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
+});
+
+app.get('/fakeuser', async (req,res) =>{
+    const user = new User({email: 'colttt@gmail.com', username: 'colttt'});
+    const registeredUser = await User.register(user, 'monkey');
+    res.send(registeredUser);
 })
 
 app.use('/campgrounds', campgroundRoutes);
