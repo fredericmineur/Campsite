@@ -6,8 +6,9 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const ExpressError = require('./utils/ExpressError');
-const campgroundRoutes = require('./routes/campground');
-const reviewRoutes = require('./routes/review');
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/reviews');
+const userRoutes = require('./routes/users');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
@@ -70,6 +71,7 @@ app.get('/fakeuser', async (req,res) =>{
 
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes );
+app.use('/', userRoutes);
 
 
 
