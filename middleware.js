@@ -1,3 +1,5 @@
+const Campground = require('./models/campground');
+
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()){
         req.session.returnTo = req.originalUrl;
@@ -6,3 +8,4 @@ module.exports.isLoggedIn = (req, res, next) => {
     }
     next();
 }
+
