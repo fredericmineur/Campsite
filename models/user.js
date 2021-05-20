@@ -8,11 +8,11 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    }
+    // username: {
+    //     type: String,
+    //     required: true,
+    //     unique: true
+    // }
 });
 
 //adds a password, username hidden fields
