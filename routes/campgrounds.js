@@ -4,23 +4,22 @@ const campgroundController = require('../controllers/campgrounds');
 const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, isCampgroundAuthor, validateCampground } = require('../middleware');
 
-router.get('/', catchAsync(campgroundController.index));
-
+router.route('/')
+    .get(catchAsync(campgroundController.index))
+    .post(isLoggedIn, validateCampground, 
+        catchAsync(campgroundController.createCampground));
+    
 router.get('/new', isLoggedIn, 
     campgroundController.renderCampgroundCreateForm);
 
-router.post('/', isLoggedIn, validateCampground, 
-    catchAsync(campgroundController.createCampground));
-
-router.get('/:id', catchAsync(campgroundController.showCampground))
+router.route('/:id')
+    .get(catchAsync(campgroundController.showCampground))
+    .put(isLoggedIn, isCampgroundAuthor, validateCampground, 
+        catchAsync(campgroundController.editCampground))
+    .delete(isLoggedIn, isCampgroundAuthor, 
+        campgroundController.deleteCampground);
 
 router.get('/:id/edit', isLoggedIn, isCampgroundAuthor, 
-    catchAsync(campgroundController.renderCampgroundEditForm))
-
-router.put('/:id', isLoggedIn, isCampgroundAuthor, validateCampground, 
-    catchAsync(campgroundController.editCampground))
-
-router.delete('/:id', isLoggedIn, isCampgroundAuthor, 
-    campgroundController.deleteCampground)
+    catchAsync(campgroundController.renderCampgroundEditForm));
 
 module.exports = router;
