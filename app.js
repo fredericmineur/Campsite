@@ -1,7 +1,7 @@
 if(process.env.NODE_EMV !== "production") {
     require('dotenv').config();
 }
-console.log(process.env.cloudinary_API_secret)
+
 
 const express = require('express');
 const path = require('path');
