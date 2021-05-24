@@ -12,13 +12,17 @@ router.route('/')
     .get(catchAsync(campgroundController.index))
     // .post(isLoggedIn, validateCampground, 
     //     catchAsync(campgroundController.createCampground));
-    .post(upload.array('image'), (req, res)=>{
-        console.log(req.body);
-        console.log(req.files);
-        res.send('sent');
-    });
+    // .post(upload.array('image'), (req, res)=>{
+    //     console.log(req.body);
+    //     console.log(req.files);
+    //     res.send('sent');
+    // });
+    .post(upload.array('images'), isLoggedIn, validateCampground, 
+        catchAsync(campgroundController.createCampground)
+    )
 
-router.get('/new', 
+
+router.get('/new', isLoggedIn,
     campgroundController.renderCampgroundCreateForm);
 // router.get('/new', isLoggedIn, 
 //     campgroundController.renderCampgroundCreateForm);
