@@ -11,7 +11,8 @@ module.exports.campgroundSchema = Joi.object({
         })),
         description: Joi.string().required(),
         location: Joi.string().required()
-    }).required()
+    }).required(),
+    deleteImages: Joi.array()
 });
 //https://stackoverflow.com/questions/42656549/joi-validation-of-array/42656623#42656623
 
