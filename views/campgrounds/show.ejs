@@ -8,6 +8,9 @@
             <div class="card">
 
                 <div id='map' style='width: 400px; height: 300px;'></div>
+                <p>
+                    <%- campground.geometry.coordinates %>
+                </p>
 
 
                 <div id="campgroundCarousel" class="carousel slide card-img-top" data-bs-ride="carousel">
@@ -145,5 +148,9 @@
                         <% } %>
         </div>
     </div>
-    <script> const mapboxToken = '<%- process.env.MAPBOX_TOKEN %>'</script>
+    <script> 
+    const mapboxToken = '<%- process.env.MAPBOX_TOKEN %>';
+    const campground = <%- JSON.stringify(campground) %>;
+    </script>
+ 
     <script src="/scripts/mapShowPage.js"></script>

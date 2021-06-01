@@ -14,7 +14,7 @@ const geocodingClient = mbxGecoding({accessToken:process.env.MAPBOX_TOKEN})
 
 router.route('/mapbox').get(async (req, res)=>{
     const geodataResponse = await geocodingClient.forwardGeocode({
-        query: 'Yosemite, CA',
+        query: 'Les huttes oleron',
         limit: 2
       }).send();
     console.log(geodataResponse);

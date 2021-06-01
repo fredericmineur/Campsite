@@ -62,11 +62,12 @@ module.exports.editCampground = async (req, res, next) => {
         { ...req.body.campground }, { runValidators: true, new: true, useFindAndModify: false });
     const newImages = req.files.map((file)=>{return {url: file.path, filename: file.filename}});
     campground.images.push(...newImages);
-    // console.log('del images');
-    // console.dir(req.deleteImages);
-    // console.log('req.body');
-    // console.dir(req.body);
-    // return;
+    const geodataResponse = await geocodingClient.forwardGeocode({
+        query: req.body.campground.location,
+        limit:1
+    }).send();
+    campground.geometry = geodataResponse.body.features[0].geometry
+
     await campground.save();
     if (req.body.deleteImages){
         for (let filename of req.body.deleteImages){
