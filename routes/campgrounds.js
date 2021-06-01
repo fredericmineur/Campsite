@@ -8,6 +8,19 @@ const multer  = require('multer');
 const {storage} = require('../cloudinary');
 const upload = multer({ storage: storage });
 
+const mbxGecoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const geocodingClient = mbxGecoding({accessToken:process.env.MAPBOX_TOKEN})
+
+
+router.route('/mapbox').get(async (req, res)=>{
+    const geodataResponse = await geocodingClient.forwardGeocode({
+        query: 'Yosemite, CA',
+        limit: 2
+      }).send();
+    console.log(geodataResponse);
+    res.send(geodataResponse.body.features[0].geometry.coordinates);
+})
+
 router.route('/')
     .get(catchAsync(campgroundController.index))
     // .post(isLoggedIn, validateCampground, 
