@@ -48,11 +48,13 @@ app.use(flash());
 app.use(mongoSanitize());
 
 const sessionOptions = {
+    name: 'session',
     secret: 'secretcampground',
     resave: false,
     saveUninitialized: true,
     cookie : {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + 1000 + 60 * 60 * 24 *7,
         maxAge: 1000 + 60 * 60 * 24 *7
     }
@@ -69,7 +71,6 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req, res, next)=>{
-    console.log(req.query);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
