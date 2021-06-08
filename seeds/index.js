@@ -31,12 +31,12 @@ const seedDB = async () => {
             title: `${sample(descriptors)} ${sample(places)}`,
             images: [
                 {
-                  url: 'https://res.cloudinary.com/djllqmzjg/image/upload/v1621891665/CampSite/i8undqddchurg1yrnfas.jpg',
-                  filename: 'CampSite/i8undqddchurg1yrnfas'
+                  url: 'https://res.cloudinary.com/djllqmzjg/image/upload/v1622535989/CampSite/wipix69fa7ltmguutuwg.jpg',
+                  filename: 'CampSite/wipix69fa7ltmguutuwg'
                 },
                 {
-                  url: 'https://res.cloudinary.com/djllqmzjg/image/upload/v1621891665/CampSite/phtgcmc8g2bnapyhzaz9.jpg',
-                  filename: 'CampSite/phtgcmc8g2bnapyhzaz9'
+                  url: 'https://res.cloudinary.com/djllqmzjg/image/upload/v1622031109/CampSite/trfoxyf22vpxsg5btpr2.jpg',
+                  filename: 'CampSite/trfoxyf22vpxsg5btpr2'
                 }
               ],
             description:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis hic iste commodi animi laudantium, eum nostrum ex sit perferendis, atque mollitia tenetur quam recusandae sapiente dolor? Veniam expedita cupiditate ipsam.',
