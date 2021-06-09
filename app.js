@@ -23,7 +23,7 @@ const MongoStore = require('connect-mongo');
 
 
 // const dbUrl = process.env.DB_URL;
-const dbUrl = 'mongodb://localhost:27017/camp-site'
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-site';
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -100,10 +100,12 @@ app.use(
     })
 );
 
+const secret = process.env.SECRET || 'secretcampground';
+
 const store = MongoStore.create({ 
     mongoUrl: dbUrl,
     crypto: {
-        secret: 'secretcampground',
+        secret
     },
     touchAfter: 24 * 3600
  });
@@ -115,7 +117,7 @@ const store = MongoStore.create({
 const sessionOptions = {
     store,
     name: 'session',
-    secret: 'secretcampground',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie : {
@@ -172,7 +174,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err });
 })
 
+const port = process.env.PORT || 3000;
 
-app.listen(3000, () => { console.log('Serving on port 3000') })
+app.listen(port, () => { console.log(`Serving on port ${port}`) })
 
 
